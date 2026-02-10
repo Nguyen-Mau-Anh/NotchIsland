@@ -1,0 +1,91 @@
+{
+  "" : {
+    "const-values" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary.swiftconstvalues",
+    "dependencies" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary.d",
+    "diagnostics" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary.dia",
+    "emit-module-dependencies" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary-emit-module.dia",
+    "pch" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIsland-primary.swiftdeps"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/CalendarManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CalendarManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CalendarManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CalendarManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/KeyboardShortcutManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/KeyboardShortcutManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/KeyboardShortcutManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/KeyboardShortcutManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/MusicManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/MusicManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/MusicManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/MusicManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/SystemAudioManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/SystemAudioManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/SystemAudioManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/SystemAudioManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/ThemeManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/ThemeManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/ThemeManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/ThemeManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/UniversalAudioManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/UniversalAudioManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/UniversalAudioManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/UniversalAudioManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Managers/WeatherManager.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/WeatherManager.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/WeatherManager.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/WeatherManager.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/NotchIslandApp.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIslandApp.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIslandApp.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIslandApp.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/NotchWindow.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchWindow.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchWindow.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchWindow.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/CalendarWidgetView.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CalendarWidgetView.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CalendarWidgetView.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CalendarWidgetView.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/CustomWidgetView.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CustomWidgetView.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CustomWidgetView.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/CustomWidgetView.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/MusicWidgetView.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/MusicWidgetView.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/MusicWidgetView.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/MusicWidgetView.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/NotchIslandView.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIslandView.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIslandView.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/NotchIslandView.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/SettingsView.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/SettingsView.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/SettingsView.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/SettingsView.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/WeatherWidgetView.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/WeatherWidgetView.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/WeatherWidgetView.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/WeatherWidgetView.o"
+  },
+  "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/DerivedSources/GeneratedAssetSymbols.swift" : {
+    "index-unit-output-path" : "/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/GeneratedAssetSymbols.o",
+    "llvm-bc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/GeneratedAssetSymbols.bc",
+    "object" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/x86_64/GeneratedAssetSymbols.o"
+  }
+}

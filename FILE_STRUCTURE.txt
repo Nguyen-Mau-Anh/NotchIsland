@@ -1,0 +1,157 @@
+NotchIsland - Complete Project Structure
+========================================
+
+Your NotchIsland project includes the following files:
+
+📁 NotchIsland/
+│
+├── 📄 NotchIslandApp.swift (380 lines)
+│   Main application entry point
+│   - App delegate with menu bar setup
+│   - Global mouse monitoring
+│   - Hover detection logic
+│   - Permission management
+│
+├── 📄 NotchWindow.swift (90 lines)
+│   Floating window management
+│   - Borderless window configuration
+│   - Smooth show/hide animations
+│   - Position calculation for notch area
+│   - Timer-based hide delay
+│
+├── 📁 Views/
+│   │
+│   ├── 📄 NotchIslandView.swift (95 lines)
+│   │   Main SwiftUI interface
+│   │   - Widget tab system
+│   │   - Blur background effect
+│   │   - Tab switching logic
+│   │
+│   ├── 📄 MusicWidgetView.swift (85 lines)
+│   │   Music playback widget
+│   │   - Album artwork display
+│   │   - Track info (title, artist)
+│   │   - Playback controls (play/pause/skip)
+│   │
+│   ├── 📄 CalendarWidgetView.swift (110 lines)
+│   │   Calendar events widget
+│   │   - Event list with details
+│   │   - Time and duration display
+│   │   - Location indicators
+│   │   - Permission prompt
+│   │
+│   ├── 📄 CustomWidgetView.swift (75 lines)
+│   │   Extensible custom widget area
+│   │   - Placeholder for future widgets
+│   │   - Widget card template
+│   │
+│   └── 📄 SettingsView.swift (175 lines)
+│       Settings and preferences
+│       - General settings (launch, sensitivity)
+│       - Widget toggles
+│       - About page
+│       - Permission links
+│
+├── 📁 Managers/
+│   │
+│   ├── 📄 MusicManager.swift (235 lines)
+│   │   Music integration logic
+│   │   - Apple Music support (AppleScript)
+│   │   - Spotify support (AppleScript)
+│   │   - Track metadata fetching
+│   │   - Playback control methods
+│   │   - Auto-refresh timer (2 seconds)
+│   │
+│   └── 📄 CalendarManager.swift (140 lines)
+│       Calendar integration logic
+│       - EventKit framework integration
+│       - Permission handling (macOS 13+14 compatible)
+│       - Event fetching (7 days ahead)
+│       - Auto-refresh timer (5 minutes)
+│
+├── 📄 Info.plist
+│   App configuration
+│   - LSUIElement (hide from dock)
+│   - Permission descriptions
+│   - Bundle metadata
+│
+├── 📄 NotchIsland.entitlements
+│   Required capabilities
+│   - Disable sandbox
+│   - Calendar access
+│   - Apple Events (AppleScript)
+│
+├── 📄 README.md
+│   Complete documentation
+│   - Feature overview
+│   - Architecture explanation
+│   - Troubleshooting guide
+│   - Customization tips
+│   - Contributing guidelines
+│
+├── 📄 SETUP_GUIDE.md
+│   Step-by-step setup for beginners
+│   - Xcode installation
+│   - Project creation
+│   - File organization
+│   - Build instructions
+│   - Common issues & solutions
+│
+└── 📄 FILE_STRUCTURE.txt
+    This file!
+
+
+STATISTICS
+==========
+Total Files: 14
+Total Lines of Code: ~1,485 lines
+Primary Language: Swift (SwiftUI + AppKit)
+Frameworks Used: SwiftUI, AppKit, EventKit
+Integration Methods: AppleScript for music control
+
+
+FEATURES IMPLEMENTED
+====================
+✅ Hover-activated Dynamic Island interface
+✅ Music widget (Apple Music & Spotify)
+✅ Calendar widget (EventKit integration)
+✅ Custom widget placeholder system
+✅ Settings panel with customization
+✅ Smooth animations and transitions
+✅ Menu bar app architecture
+✅ Permission management system
+✅ Global mouse monitoring
+✅ Auto-refresh for real-time data
+
+
+TECHNOLOGIES USED
+=================
+- Swift 5.9+
+- SwiftUI (UI framework)
+- AppKit (Window management)
+- EventKit (Calendar access)
+- AppleScript (Music control)
+- NSEvent (Mouse monitoring)
+- Combine (Reactive programming)
+
+
+TO BUILD
+========
+1. Create new macOS App in Xcode
+2. Add all files to appropriate folders
+3. Configure signing & capabilities
+4. Set minimum deployment to macOS 13.0
+5. Build and run (Cmd+R)
+
+See SETUP_GUIDE.md for detailed instructions!
+
+
+NEXT STEPS
+==========
+- Build the project in Xcode
+- Test hover functionality
+- Grant required permissions
+- Customize to your preferences
+- Add your own widgets!
+
+Enjoy your Dynamic Island! 🏝️✨

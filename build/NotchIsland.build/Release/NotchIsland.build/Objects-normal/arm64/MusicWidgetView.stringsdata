@@ -1,0 +1,40 @@
+{
+  "source": "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/MusicWidgetView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Pause",
+        "location": {
+          "startingColumn": 59,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "Play",
+        "location": {
+          "startingColumn": 69,
+          "startingLine": 63
+        }
+      },
+      {
+        "comment": "",
+        "key": "No Audio Playing",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 93
+        }
+      },
+      {
+        "comment": "",
+        "key": "Play music or videos to see them here",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 97
+        }
+      }
+    ]
+  },
+  "version": 1
+}

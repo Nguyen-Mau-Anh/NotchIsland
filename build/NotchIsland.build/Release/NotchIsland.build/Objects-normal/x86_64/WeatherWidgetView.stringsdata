@@ -1,0 +1,72 @@
+{
+  "source": "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/WeatherWidgetView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "%lld°",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 59
+        }
+      },
+      {
+        "comment": "",
+        "key": "%lld°",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 192
+        }
+      },
+      {
+        "comment": "",
+        "key": "Loading weather...",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 216
+        }
+      },
+      {
+        "comment": "",
+        "key": "Location access needed",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 233
+        }
+      },
+      {
+        "comment": "",
+        "key": "Enable Location",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 238
+        }
+      },
+      {
+        "comment": "",
+        "key": "Location access denied",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 262
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Settings",
+        "location": {
+          "startingColumn": 20,
+          "startingLine": 266
+        }
+      },
+      {
+        "comment": "",
+        "key": "Retry",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 300
+        }
+      }
+    ]
+  },
+  "version": 1
+}

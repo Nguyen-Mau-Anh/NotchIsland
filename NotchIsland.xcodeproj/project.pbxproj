@@ -1,0 +1,444 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA0001 /* NotchIslandApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0001 /* NotchIslandApp.swift */; };
+		AA0002 /* NotchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0002 /* NotchWindow.swift */; };
+		AA0003 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB0003 /* Assets.xcassets */; };
+		AA0004 /* NotchIslandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0004 /* NotchIslandView.swift */; };
+		AA0005 /* MusicWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0005 /* MusicWidgetView.swift */; };
+		AA0006 /* CalendarWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0006 /* CalendarWidgetView.swift */; };
+		AA0007 /* WeatherWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0007 /* WeatherWidgetView.swift */; };
+		AA0008 /* CustomWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0008 /* CustomWidgetView.swift */; };
+		AA0009 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0009 /* SettingsView.swift */; };
+		AA0010 /* MusicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0010 /* MusicManager.swift */; };
+		AA0011 /* CalendarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0011 /* CalendarManager.swift */; };
+		AA0012 /* WeatherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0012 /* WeatherManager.swift */; };
+		AA0013 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0013 /* ThemeManager.swift */; };
+		AA0014 /* KeyboardShortcutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0014 /* KeyboardShortcutManager.swift */; };
+		AA0015 /* SystemAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0017 /* SystemAudioManager.swift */; };
+		AA0016 /* UniversalAudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0018 /* UniversalAudioManager.swift */; };
+		AA0017 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF0001 /* EventKit.framework */; };
+		AA0018 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF0002 /* CoreLocation.framework */; };
+		AA0019 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF0003 /* Carbon.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BB0001 /* NotchIslandApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchIslandApp.swift; sourceTree = "<group>"; };
+		BB0002 /* NotchWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchWindow.swift; sourceTree = "<group>"; };
+		BB0003 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BB0004 /* NotchIslandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotchIslandView.swift; sourceTree = "<group>"; };
+		BB0005 /* MusicWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicWidgetView.swift; sourceTree = "<group>"; };
+		BB0006 /* CalendarWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWidgetView.swift; sourceTree = "<group>"; };
+		BB0007 /* WeatherWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWidgetView.swift; sourceTree = "<group>"; };
+		BB0008 /* CustomWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomWidgetView.swift; sourceTree = "<group>"; };
+		BB0009 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB0010 /* MusicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicManager.swift; sourceTree = "<group>"; };
+		BB0011 /* CalendarManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarManager.swift; sourceTree = "<group>"; };
+		BB0012 /* WeatherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManager.swift; sourceTree = "<group>"; };
+		BB0013 /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
+		BB0014 /* KeyboardShortcutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShortcutManager.swift; sourceTree = "<group>"; };
+		BB0015 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB0016 /* NotchIsland.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotchIsland.entitlements; sourceTree = "<group>"; };
+		BB0017 /* SystemAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAudioManager.swift; sourceTree = "<group>"; };
+		BB0018 /* UniversalAudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalAudioManager.swift; sourceTree = "<group>"; };
+		CC0001 /* NotchIsland.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NotchIsland.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF0001 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		FF0002 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FF0003 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD0001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0017 /* EventKit.framework in Frameworks */,
+				AA0018 /* CoreLocation.framework in Frameworks */,
+				AA0019 /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE0001 = {
+			isa = PBXGroup;
+			children = (
+				EE0002 /* NotchIsland */,
+				EE0003 /* Products */,
+				EE0004 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EE0002 /* NotchIsland */ = {
+			isa = PBXGroup;
+			children = (
+				BB0001 /* NotchIslandApp.swift */,
+				BB0002 /* NotchWindow.swift */,
+				EE0005 /* Views */,
+				EE0006 /* Managers */,
+				BB0003 /* Assets.xcassets */,
+				BB0015 /* Info.plist */,
+				BB0016 /* NotchIsland.entitlements */,
+			);
+			path = NotchIsland;
+			sourceTree = "<group>";
+		};
+		EE0003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC0001 /* NotchIsland.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE0004 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FF0001 /* EventKit.framework */,
+				FF0002 /* CoreLocation.framework */,
+				FF0003 /* Carbon.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE0005 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB0004 /* NotchIslandView.swift */,
+				BB0005 /* MusicWidgetView.swift */,
+				BB0006 /* CalendarWidgetView.swift */,
+				BB0007 /* WeatherWidgetView.swift */,
+				BB0008 /* CustomWidgetView.swift */,
+				BB0009 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EE0006 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BB0010 /* MusicManager.swift */,
+				BB0011 /* CalendarManager.swift */,
+				BB0012 /* WeatherManager.swift */,
+				BB0013 /* ThemeManager.swift */,
+				BB0014 /* KeyboardShortcutManager.swift */,
+				BB0017 /* SystemAudioManager.swift */,
+				BB0018 /* UniversalAudioManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		TT0001 /* NotchIsland */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BC0001 /* Build configuration list for PBXNativeTarget "NotchIsland" */;
+			buildPhases = (
+				PP0001 /* Sources */,
+				DD0001 /* Frameworks */,
+				RR0001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotchIsland;
+			productName = NotchIsland;
+			productReference = CC0001 /* NotchIsland.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PR0001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					TT0001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = BC0002 /* Build configuration list for PBXProject "NotchIsland" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE0001;
+			productRefGroup = EE0003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				TT0001 /* NotchIsland */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		RR0001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0003 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		PP0001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0001 /* NotchIslandApp.swift in Sources */,
+				AA0002 /* NotchWindow.swift in Sources */,
+				AA0004 /* NotchIslandView.swift in Sources */,
+				AA0005 /* MusicWidgetView.swift in Sources */,
+				AA0006 /* CalendarWidgetView.swift in Sources */,
+				AA0007 /* WeatherWidgetView.swift in Sources */,
+				AA0008 /* CustomWidgetView.swift in Sources */,
+				AA0009 /* SettingsView.swift in Sources */,
+				AA0010 /* MusicManager.swift in Sources */,
+				AA0011 /* CalendarManager.swift in Sources */,
+				AA0012 /* WeatherManager.swift in Sources */,
+				AA0013 /* ThemeManager.swift in Sources */,
+				AA0014 /* KeyboardShortcutManager.swift in Sources */,
+				AA0015 /* SystemAudioManager.swift in Sources */,
+				AA0016 /* UniversalAudioManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		XC0001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		XC0002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		XC0003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AUTOMATION_APPLE_EVENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = NotchIsland/NotchIsland.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NotchIsland/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "NotchIsland needs access to your calendar to display upcoming events";
+				INFOPLIST_KEY_NSLocationUsageDescription = "NotchIsland needs your location to provide weather information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "NotchIsland needs your location to provide weather information";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notchisland.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		XC0004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AUTOMATION_APPLE_EVENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = NotchIsland/NotchIsland.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = YES;
+				ENABLE_RESOURCE_ACCESS_LOCATION = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = NotchIsland/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSCalendarsUsageDescription = "NotchIsland needs access to your calendar to display upcoming events";
+				INFOPLIST_KEY_NSLocationUsageDescription = "NotchIsland needs your location to provide weather information";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "NotchIsland needs your location to provide weather information";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.notchisland.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BC0001 /* Build configuration list for PBXNativeTarget "NotchIsland" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				XC0003 /* Debug */,
+				XC0004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BC0002 /* Build configuration list for PBXProject "NotchIsland" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				XC0001 /* Debug */,
+				XC0002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = PR0001 /* Project object */;
+}

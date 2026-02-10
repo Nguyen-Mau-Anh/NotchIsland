@@ -1,0 +1,344 @@
+{
+  "source": "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/SettingsView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "General",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 26
+        }
+      },
+      {
+        "comment": "",
+        "key": "Widgets",
+        "location": {
+          "startingColumn": 23,
+          "startingLine": 35
+        }
+      },
+      {
+        "comment": "",
+        "key": "Appearance",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 40
+        }
+      },
+      {
+        "comment": "",
+        "key": "About",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 45
+        }
+      },
+      {
+        "comment": "",
+        "key": "Launch at Login",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 61
+        }
+      },
+      {
+        "comment": "",
+        "key": "Hover Sensitivity",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 64
+        }
+      },
+      {
+        "comment": "",
+        "key": "Controls how close your mouse needs to be to the notch",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 79
+        }
+      },
+      {
+        "comment": "",
+        "key": "Low",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 68
+        }
+      },
+      {
+        "comment": "",
+        "key": "High",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 74
+        }
+      },
+      {
+        "comment": "",
+        "key": "Auto-Hide Delay",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 85
+        }
+      },
+      {
+        "comment": "",
+        "key": "Delay before the island disappears: %@s",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 100
+        }
+      },
+      {
+        "comment": "",
+        "key": "Instant",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 89
+        }
+      },
+      {
+        "comment": "",
+        "key": "2s",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 95
+        }
+      },
+      {
+        "comment": "",
+        "key": "Keyboard Shortcut",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 108
+        }
+      },
+      {
+        "comment": "",
+        "key": "Press the shortcut key combination to show/hide the island",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 124
+        }
+      },
+      {
+        "comment": "",
+        "key": "Toggle Island",
+        "location": {
+          "startingColumn": 30,
+          "startingLine": 112
+        }
+      },
+      {
+        "comment": "",
+        "key": "Reset",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 118
+        }
+      },
+      {
+        "comment": "",
+        "key": "Permissions",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 132
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Accessibility Settings",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 135
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Calendar Settings",
+        "location": {
+          "startingColumn": 28,
+          "startingLine": 139
+        }
+      },
+      {
+        "comment": "",
+        "key": "Available Widgets",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 218
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weather Settings",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 229
+        }
+      },
+      {
+        "comment": "",
+        "key": "Music Playback",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 219
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show currently playing music with playback controls",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 220
+        }
+      },
+      {
+        "comment": "",
+        "key": "Calendar Events",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 222
+        }
+      },
+      {
+        "comment": "",
+        "key": "Display upcoming calendar events",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 223
+        }
+      },
+      {
+        "comment": "",
+        "key": "Weather",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 225
+        }
+      },
+      {
+        "comment": "",
+        "key": "Show current weather and forecast for your location",
+        "location": {
+          "startingColumn": 27,
+          "startingLine": 226
+        }
+      },
+      {
+        "comment": "",
+        "key": "Open Location Settings",
+        "location": {
+          "startingColumn": 24,
+          "startingLine": 237
+        }
+      },
+      {
+        "comment": "",
+        "key": "Location Status",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 231
+        }
+      },
+      {
+        "comment": "",
+        "key": "Theme",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 251
+        }
+      },
+      {
+        "comment": "",
+        "key": "Preview",
+        "location": {
+          "startingColumn": 21,
+          "startingLine": 272
+        }
+      },
+      {
+        "comment": "",
+        "key": "Choose a theme for the island overlay",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 253
+        }
+      },
+      {
+        "comment": "",
+        "key": "Music",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 339
+        }
+      },
+      {
+        "comment": "",
+        "key": "Calendar",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 348
+        }
+      },
+      {
+        "comment": "",
+        "key": "Song Title",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 357
+        }
+      },
+      {
+        "comment": "",
+        "key": "Artist Name",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 360
+        }
+      },
+      {
+        "comment": "",
+        "key": "Dynamic Island experience for your Mac",
+        "location": {
+          "startingColumn": 18,
+          "startingLine": 410
+        }
+      },
+      {
+        "comment": "",
+        "key": "NotchIsland",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 401
+        }
+      },
+      {
+        "comment": "",
+        "key": "Version 1.0.0",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 405
+        }
+      },
+      {
+        "comment": "",
+        "key": "Created with Claude",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 418
+        }
+      },
+      {
+        "comment": "",
+        "key": "© 2026",
+        "location": {
+          "startingColumn": 22,
+          "startingLine": 422
+        }
+      }
+    ]
+  },
+  "version": 1
+}

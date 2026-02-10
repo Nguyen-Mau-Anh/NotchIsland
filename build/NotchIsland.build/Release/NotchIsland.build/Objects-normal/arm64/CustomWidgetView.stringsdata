@@ -1,0 +1,24 @@
+{
+  "source": "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/CustomWidgetView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "Customize Your Widgets",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 23
+        }
+      },
+      {
+        "comment": "",
+        "key": "Add custom widgets in Settings",
+        "location": {
+          "startingColumn": 26,
+          "startingLine": 27
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -1,0 +1,32 @@
+{
+  "source": "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/Views/CalendarWidgetView.swift",
+  "tables": {
+    "Localizable": [
+      {
+        "comment": "",
+        "key": "No upcoming events",
+        "location": {
+          "startingColumn": 54,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Calendar access required",
+        "location": {
+          "startingColumn": 77,
+          "startingLine": 31
+        }
+      },
+      {
+        "comment": "",
+        "key": "Grant Access",
+        "location": {
+          "startingColumn": 32,
+          "startingLine": 36
+        }
+      }
+    ]
+  },
+  "version": 1
+}

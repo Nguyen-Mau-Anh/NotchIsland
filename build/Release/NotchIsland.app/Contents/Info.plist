@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>25C56</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleExecutable</key>
+	<string>NotchIsland</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.notchisland.app</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>NotchIsland</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleSupportedPlatforms</key>
+	<array>
+		<string>MacOSX</string>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>25A352</string>
+	<key>DTPlatformName</key>
+	<string>macosx</string>
+	<key>DTPlatformVersion</key>
+	<string>26.0</string>
+	<key>DTSDKBuild</key>
+	<string>25A352</string>
+	<key>DTSDKName</key>
+	<string>macosx26.0</string>
+	<key>DTXcode</key>
+	<string>2601</string>
+	<key>DTXcodeBuild</key>
+	<string>17A400</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>NotchIsland needs to control music apps to display playback information and provide media controls.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>NotchIsland needs access to Apple Music to display currently playing songs and control playback.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>NotchIsland needs access to your calendar to display upcoming events in the Dynamic Island interface.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>NotchIsland needs your location to display local weather conditions in the Weather Widget.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>NotchIsland needs your location to display local weather conditions in the Weather Widget.</string>
+</dict>
+</plist>

@@ -1,0 +1,165 @@
+{
+  "name": "NotchIsland Test Configuration",
+  "description": "Test configuration based on QA findings from QA_TEST_RESULTS.md",
+  "version": "1.0",
+  "testSuites": {
+    "critical": {
+      "description": "Critical bugs that must be fixed before release",
+      "tests": [
+        {
+          "id": "BUG-005",
+          "name": "Weather API Key Validation", 
+          "severity": "CRITICAL",
+          "description": "Verify Weather API key is not placeholder 'YOUR_API_KEY'",
+          "file": "WeatherManager.swift:119",
+          "expectedResult": "Real OpenWeatherMap API key (32 hex characters)",
+          "currentStatus": "FAILING - placeholder key present"
+        }
+      ]
+    },
+    "medium": {
+      "description": "Medium priority issues that should be addressed",
+      "tests": [
+        {
+          "id": "BUG-002", 
+          "name": "Spotify Main Thread Blocking",
+          "severity": "MEDIUM",
+          "description": "Spotify artwork fetch uses synchronous call that may block main thread",
+          "file": "MusicManager.swift:258,363-373", 
+          "expectedResult": "Artwork fetching moved to background queue",
+          "currentStatus": "NEEDS_FIX - semaphore.wait() on main thread"
+        },
+        {
+          "id": "BUG-006",
+          "name": "Temperature Units", 
+          "severity": "MEDIUM",
+          "description": "Weather only shows Celsius, no Fahrenheit option",
+          "file": "WeatherManager.swift:232,240",
+          "expectedResult": "User preference for temperature units",
+          "currentStatus": "NEEDS_FIX - hardcoded metric units"
+        }
+      ]
+    },
+    "resolved": {
+      "description": "Previously critical bugs that have been resolved",
+      "tests": [
+        {
+          "id": "BUG-001",
+          "name": "Music Metadata Delimiter Safety",
+          "severity": "RESOLVED",
+          "description": "AppleScript metadata parsing now uses safe '<<~>>' delimiter instead of '|'", 
+          "file": "MusicManager.swift:44",
+          "expectedResult": "No pipe characters in parsing",
+          "currentStatus": "RESOLVED - using <<~>> delimiter"
+        },
+        {
+          "id": "BUG-004", 
+          "name": "Cache Key Delimiter Safety",
+          "severity": "RESOLVED",
+          "description": "Cache keys now use '~~' separator instead of '|'",
+          "file": "MusicManager.swift:140,233", 
+          "expectedResult": "Safe cache key format",
+          "currentStatus": "RESOLVED - using ~~ separator"
+        },
+        {
+          "id": "BUG-011",
+          "name": "Theme Picker UI",
+          "severity": "RESOLVED", 
+          "description": "Settings now includes AppearanceSettingsView with theme selection",
+          "file": "SettingsView.swift:246-380",
+          "expectedResult": "Functional theme picker with 4 themes",
+          "currentStatus": "RESOLVED - full theme selection UI"
+        }
+      ]
+    },
+    "regression": {
+      "description": "Regression tests to ensure existing functionality works",
+      "tests": [
+        {
+          "name": "Hover Show/Hide Animation",
+          "description": "Island appears on hover, hides after delay",
+          "expectedResult": "Smooth animation, proper timing"
+        },
+        {
+          "name": "Music Widget Display", 
+          "description": "Shows current track title, artist, artwork",
+          "expectedResult": "Accurate track info display"
+        },
+        {
+          "name": "Settings Persistence",
+          "description": "All settings saved with @AppStorage persist between app launches", 
+          "expectedResult": "Settings maintained across restarts"
+        },
+        {
+          "name": "Multi-Monitor Support",
+          "description": "App detects screen with notch, handles monitor changes",
+          "expectedResult": "Positions correctly on notch screen"
+        },
+        {
+          "name": "Global Keyboard Shortcut",
+          "description": "Ctrl+Option+N toggles island visibility",
+          "expectedResult": "Shortcut works from any app"
+        }
+      ]
+    }
+  },
+  "setupRequirements": {
+    "apiKeys": [
+      {
+        "service": "OpenWeatherMap",
+        "required": true,
+        "purpose": "Weather widget functionality", 
+        "url": "https://openweathermap.org/api",
+        "currentStatus": "MISSING - placeholder key"
+      }
+    ],
+    "permissions": [
+      {
+        "type": "Location",
+        "key": "NSLocationWhenInUseUsageDescription",
+        "purpose": "Weather widget location-based forecasts"
+      },
+      {
+        "type": "Calendar", 
+        "key": "NSCalendarsUsageDescription",
+        "purpose": "Calendar widget event display"
+      },
+      {
+        "type": "AppleScript",
+        "key": "NSAppleEventsUsageDescription", 
+        "purpose": "Music playback control and track info"
+      }
+    ],
+    "systemRequirements": {
+      "macOS": "12.0+",
+      "hardware": "Mac with notch (MacBook Pro 14/16-inch recommended)",
+      "xcode": "14.0+",
+      "swift": "5.7+"
+    }
+  },
+  "testExecution": {
+    "framework": "Swift Testing",
+    "runCommand": "swift test",
+    "preTestSetup": [
+      "Ensure OpenWeatherMap API key is configured",
+      "Grant calendar and location permissions", 
+      "Connect to internet for weather API tests",
+      "Have music app (Music.app or Spotify) available for testing"
+    ],
+    "testFiles": [
+      "NotchIslandTests.swift"
+    ]
+  },
+  "knownLimitations": {
+    "testing": [
+      "Multi-monitor tests require physical hardware with multiple screens",
+      "Music integration tests require actual music apps to be installed",
+      "Global keyboard shortcut tests may interfere with system shortcuts",
+      "Weather API tests require internet connection"
+    ],
+    "performance": [
+      "Spotify artwork fetch may cause brief UI lag (BUG-002)",
+      "Large music libraries may impact artwork cache performance"
+    ]
+  }
+}

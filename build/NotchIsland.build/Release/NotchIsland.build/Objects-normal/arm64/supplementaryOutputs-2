@@ -1,0 +1,12 @@
+{
+  "/Users/anhnm/dev/03.Claude/NotchIsland/NotchIsland/NotchIslandApp.swift" : {
+    "abi-baseline-json" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland.abi.json",
+    "const-values" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland-primary.swiftconstvalues",
+    "dependencies" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland-primary.d",
+    "diagnostics" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland-primary.dia",
+    "objc-header" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland-Swift.h",
+    "swiftdoc" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland.swiftdoc",
+    "swiftmodule" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland.swiftmodule",
+    "swiftsourceinfo" : "/Users/anhnm/dev/03.Claude/NotchIsland/build/NotchIsland.build/Release/NotchIsland.build/Objects-normal/arm64/NotchIsland.swiftsourceinfo"
+  }
+}
