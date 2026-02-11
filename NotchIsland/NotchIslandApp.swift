@@ -23,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusItem: NSStatusItem?
     var notchWindow: NotchWindow?
     var mouseMonitor: Any?
+    var localMouseMonitor: Any?
     var screenObserver: NSObjectProtocol?
     let shortcutManager = KeyboardShortcutManager.shared
 
@@ -149,29 +150,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func startMouseMonitoring() {
-        mouseMonitor = NSEvent.addGlobalMonitorForEvents(matching: .mouseMoved) { [weak self] event in
+        // Global monitor: detect mouse movement everywhere (outside our window)
+        mouseMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved, .leftMouseDragged]) { [weak self] event in
             guard let self = self else { return }
+            self.handleMousePosition()
+        }
 
-            let mouseLocation = NSEvent.mouseLocation
-
-            // Find the screen with the notch (builtin display)
-            guard let notchScreen = Self.screenWithNotch() else { return }
-
-            let notchRect = self.getNotchRect(for: notchScreen)
-
-            // Read hover sensitivity from persisted settings (20-100, default 50)
-            let sensitivity = UserDefaults.standard.double(forKey: "hoverSensitivity")
-            let effectiveSensitivity = sensitivity > 0 ? sensitivity : 50
-            // Map sensitivity to hover expansion: 20 → small area, 100 → large area
-            let dx = -(effectiveSensitivity * 1.5)  // -30 to -150
-            let dy = -(effectiveSensitivity * 0.4)  // -8 to -40
-            let hoverRect = notchRect.insetBy(dx: dx, dy: dy)
-
-            if hoverRect.contains(mouseLocation) {
-                self.notchWindow?.show(on: notchScreen)
-            } else {
-                self.notchWindow?.hide()
-            }
+        // Local monitor: detect mouse events INSIDE our window (clicks, drags, moves)
+        // This prevents the window from hiding when the user interacts with buttons/sliders
+        localMouseMonitor = NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved, .leftMouseDown, .leftMouseUp, .leftMouseDragged]) { [weak self] event in
+            // Any mouse activity inside the window keeps it visible
+            self?.notchWindow?.cancelHideTimer()
+            return event
         }
     }
 
@@ -259,8 +249,39 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
+    // MARK: - Mouse Position Handler
+
+    private func handleMousePosition() {
+        let mouseLocation = NSEvent.mouseLocation
+
+        // Find the screen with the notch (builtin display)
+        guard let notchScreen = Self.screenWithNotch() else { return }
+
+        let notchRect = self.getNotchRect(for: notchScreen)
+
+        // Read hover sensitivity from persisted settings (20-100, default 50)
+        let sensitivity = UserDefaults.standard.double(forKey: "hoverSensitivity")
+        let effectiveSensitivity = sensitivity > 0 ? sensitivity : 50
+        let dx = -(effectiveSensitivity * 1.5)
+        let dy = -(effectiveSensitivity * 0.4)
+        let hoverRect = notchRect.insetBy(dx: dx, dy: dy)
+
+        // Also check if mouse is inside the window itself (keeps it open during interaction)
+        let isInHoverZone = hoverRect.contains(mouseLocation)
+        let isInWindow = notchWindow?.frame.contains(mouseLocation) ?? false
+
+        if isInHoverZone || isInWindow {
+            self.notchWindow?.show(on: notchScreen)
+        } else {
+            self.notchWindow?.hide()
+        }
+    }
+
     func applicationWillTerminate(_ notification: Notification) {
         if let monitor = mouseMonitor {
+            NSEvent.removeMonitor(monitor)
+        }
+        if let monitor = localMouseMonitor {
             NSEvent.removeMonitor(monitor)
         }
         if let observer = screenObserver {

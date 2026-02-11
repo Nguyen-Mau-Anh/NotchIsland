@@ -130,6 +130,12 @@ class NotchWindow: NSWindow {
         }
     }
 
+    /// Cancel any pending hide timer (called when user interacts with window)
+    func cancelHideTimer() {
+        hideTimer?.invalidate()
+        hideTimer = nil
+    }
+
     func hideImmediately() {
         hideTimer?.invalidate()
         NSAnimationContext.runAnimationGroup({ context in

@@ -105,6 +105,8 @@ struct MusicWidgetView: View {
                         Image(systemName: "backward.fill")
                             .font(.system(size: 18))
                             .foregroundColor(.white)
+                            .frame(width: 44, height: 32)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
 
@@ -115,6 +117,8 @@ struct MusicWidgetView: View {
                         Image(systemName: audioManager.isPlaying ? "pause.fill" : "play.fill")
                             .font(.system(size: 26))
                             .foregroundColor(.white)
+                            .frame(width: 44, height: 32)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
 
@@ -125,6 +129,8 @@ struct MusicWidgetView: View {
                         Image(systemName: "forward.fill")
                             .font(.system(size: 18))
                             .foregroundColor(.white)
+                            .frame(width: 44, height: 32)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
 
@@ -132,33 +138,36 @@ struct MusicWidgetView: View {
 
                     // Output device / volume toggle
                     Button(action: { withAnimation(.easeInOut(duration: 0.2)) { showVolume.toggle() } }) {
-                        Image(systemName: showVolume ? "headphones" : "headphones")
+                        Image(systemName: "headphones")
                             .font(.system(size: 16))
                             .foregroundColor(showVolume ? .white : .white.opacity(0.6))
+                            .frame(width: 44, height: 32)
+                            .contentShape(Rectangle())
                     }
                     .buttonStyle(PlainButtonStyle())
 
                     Spacer()
                 }
 
-                // Volume slider (expandable)
+                // Volume slider (expandable) — full width with speaker icons
                 if showVolume {
-                    HStack(spacing: 8) {
+                    HStack(spacing: 10) {
                         Image(systemName: "speaker.fill")
-                            .font(.system(size: 10))
+                            .font(.system(size: 11))
                             .foregroundColor(.white.opacity(0.5))
 
                         VolumeSlider(value: Binding(
                             get: { audioManager.systemVolume },
                             set: { audioManager.setSystemVolume($0) }
                         ))
-                        .frame(height: 4)
+                        .frame(height: 6)
 
                         Image(systemName: "speaker.wave.3.fill")
-                            .font(.system(size: 10))
+                            .font(.system(size: 11))
                             .foregroundColor(.white.opacity(0.5))
                     }
                     .padding(.top, 8)
+                    .padding(.horizontal, 4)
                     .transition(.opacity.combined(with: .move(edge: .top)))
                 }
             }
@@ -209,24 +218,26 @@ struct VolumeSlider: View {
     var body: some View {
         GeometryReader { geo in
             ZStack(alignment: .leading) {
-                // Track
+                // Track background
                 Capsule()
                     .fill(Color.white.opacity(0.2))
-                    .frame(height: 4)
+                    .frame(height: 6)
 
                 // Filled portion
                 Capsule()
-                    .fill(Color.white.opacity(0.8))
-                    .frame(width: max(0, geo.size.width * CGFloat(value)), height: 4)
+                    .fill(Color.white)
+                    .frame(width: max(0, geo.size.width * CGFloat(value)), height: 6)
 
                 // Thumb (visible on drag)
                 if isDragging {
                     Circle()
                         .fill(Color.white)
-                        .frame(width: 12, height: 12)
-                        .offset(x: max(0, min(geo.size.width * CGFloat(value) - 6, geo.size.width - 12)))
+                        .frame(width: 16, height: 16)
+                        .shadow(color: .black.opacity(0.3), radius: 2, y: 1)
+                        .offset(x: max(0, min(geo.size.width * CGFloat(value) - 8, geo.size.width - 16)))
                 }
             }
+            .frame(height: 16)
             .contentShape(Rectangle())
             .gesture(
                 DragGesture(minimumDistance: 0)
