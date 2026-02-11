@@ -53,12 +53,12 @@ class NotchWindow: NSWindow {
     /// Calculate window frame positioned on the given screen (or fallback to notch/first screen)
     static func calculateWindowFrame(for screen: NSScreen? = nil) -> CGRect {
         guard let screen = screen ?? AppDelegate.screenWithNotch() ?? NSScreen.screens.first else {
-            return CGRect(x: 0, y: 0, width: 500, height: 160)
+            return CGRect(x: 0, y: 0, width: 500, height: 200)
         }
 
         let screenFrame = screen.frame
-        let windowWidth: CGFloat = 500  // Wider for more content
-        let windowHeight: CGFloat = 160  // Taller for more room (increased for notch buffer)
+        let windowWidth: CGFloat = 500
+        let windowHeight: CGFloat = 200  // Tall enough for volume slider expansion
 
         // Get the notch/menu bar dimensions
         var notchHeight: CGFloat = 32

@@ -3,7 +3,8 @@
 //  NotchIsland
 //
 //  Universal audio manager that detects playback from ANY application
-//  Supports: Music, Spotify, Chrome, Safari, Arc, Firefox, and more
+//  Primary: MediaRemote framework (detects all system audio like Control Center)
+//  Fallback: AppleScript for Music.app and Spotify (if MediaRemote unavailable)
 //
 
 import Foundation
@@ -27,6 +28,8 @@ struct UniversalTrack: Equatable {
     let artwork: NSImage?
     let source: AudioApp
     let url: String?
+    let duration: Double?      // Total duration in seconds
+    let elapsedTime: Double?   // Current playback position in seconds
 
     var displayArtist: String {
         artist ?? source.rawValue
@@ -46,11 +49,16 @@ class UniversalAudioManager: ObservableObject {
 
     @Published var currentTrack: UniversalTrack?
     @Published var isPlaying: Bool = false
+    @Published var systemVolume: Float = 0.5
 
+    private let mediaRemote = MediaRemoteManager.shared
+    private var cancellables = Set<AnyCancellable>()
+    private var volumeTimer: Timer?
+
+    // AppleScript fallback (only used if MediaRemote unavailable)
     private var updateTimer: Timer?
     private let backgroundQueue = DispatchQueue(label: "com.notchisland.audio", qos: .userInitiated)
     private var artworkCache = NSCache<NSString, NSImage>()
-
     private let delimiter = "<<~>>"
     private let artworkTempPath: String = {
         let tempDir = NSTemporaryDirectory()
@@ -59,91 +67,171 @@ class UniversalAudioManager: ObservableObject {
 
     private init() {
         artworkCache.countLimit = 30
-        startMonitoring()
-    }
 
-    private func debugLog(_ message: String) {
-        NSLog("[NotchIsland] %@", message)
+        if mediaRemote.isAvailable {
+            NSLog("[NotchIsland] Using MediaRemote + AppleScript hybrid detection")
+            setupHybridDetection()
+        } else {
+            NSLog("[NotchIsland] MediaRemote unavailable, using AppleScript only")
+            startAppleScriptMonitoring()
+        }
 
-        // Write to home directory instead of /tmp for better access
-        let homeDir = FileManager.default.homeDirectoryForCurrentUser
-        let logFile = homeDir.appendingPathComponent("notchisland_debug.log")
+        // Read initial system volume on background thread to avoid blocking init
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            let vol = Self.getSystemVolume()
+            DispatchQueue.main.async { self?.systemVolume = vol }
+        }
 
-        let timestampedMessage = "\(Date()): \(message)\n"
-        if let data = timestampedMessage.data(using: .utf8) {
-            if FileManager.default.fileExists(atPath: logFile.path) {
-                if let fileHandle = try? FileHandle(forWritingTo: logFile) {
-                    fileHandle.seekToEndOfFile()
-                    fileHandle.write(data)
-                    try? fileHandle.close()
+        // Poll system volume periodically
+        volumeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            DispatchQueue.global(qos: .userInitiated).async {
+                let vol = Self.getSystemVolume()
+                DispatchQueue.main.async {
+                    if self?.systemVolume != vol { self?.systemVolume = vol }
                 }
-            } else {
-                try? data.write(to: logFile)
             }
         }
     }
 
-    func startMonitoring() {
-        debugLog("🚀 Starting monitoring...")
-        // Check every 2 seconds
-        updateTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
-            self?.debugLog("⏰ Timer fired")
-            // Run on background queue to avoid blocking main thread
-            // But AppleScript execution itself will be on main thread
-            self?.backgroundQueue.async {
-                self?.updateCurrentTrack()
+    // MARK: - Hybrid Detection (MediaRemote + AppleScript fallback)
+
+    private func setupHybridDetection() {
+        // When MediaRemote finds a track, use it; otherwise fall back to AppleScript
+        mediaRemote.$currentTrack
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] track in
+                if let track = track {
+                    // MediaRemote found something — use it
+                    self?.currentTrack = track
+                }
+                // If nil, the poll timer below will try AppleScript
+            }
+            .store(in: &cancellables)
+
+        mediaRemote.$isPlaying
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] playing in
+                // Only update if MediaRemote has a track
+                if self?.mediaRemote.currentTrack != nil {
+                    self?.isPlaying = playing
+                }
+            }
+            .store(in: &cancellables)
+
+        // Poll with AppleScript as fallback when MediaRemote finds nothing
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            // If MediaRemote already has a track, skip AppleScript
+            if self.mediaRemote.currentTrack != nil { return }
+
+            self.backgroundQueue.async {
+                self.updateCurrentTrackAppleScript()
             }
         }
 
-        // Initial check on background queue
-        debugLog("🎬 Running initial check...")
+        // Initial AppleScript check too
         backgroundQueue.async { [weak self] in
-            self?.updateCurrentTrack()
+            self?.updateCurrentTrackAppleScript()
         }
     }
 
-    func updateCurrentTrack() {
-        // Priority order: Music apps first, then browsers
-        // Only check apps that are actually running
+    // MARK: - Playback Controls
+
+    func togglePlayPause() {
+        if mediaRemote.isAvailable {
+            mediaRemote.togglePlayPause()
+        } else {
+            togglePlayPauseAppleScript()
+        }
+    }
+
+    func nextTrack() {
+        if mediaRemote.isAvailable {
+            mediaRemote.nextTrack()
+        }
+    }
+
+    func previousTrack() {
+        if mediaRemote.isAvailable {
+            mediaRemote.previousTrack()
+        }
+    }
+
+    // MARK: - Volume Control
+
+    func setSystemVolume(_ volume: Float) {
+        let clamped = max(0, min(1, volume))
+        systemVolume = clamped
+        DispatchQueue.global(qos: .userInitiated).async {
+            let script = "set volume output volume \(Int(clamped * 100))"
+            let task = Process()
+            task.launchPath = "/usr/bin/osascript"
+            task.arguments = ["-e", script]
+            task.standardOutput = Pipe()
+            task.standardError = Pipe()
+            try? task.run()
+        }
+    }
+
+    static func getSystemVolume() -> Float {
+        let task = Process()
+        task.launchPath = "/usr/bin/osascript"
+        task.arguments = ["-e", "output volume of (get volume settings)"]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = Pipe()
+        do {
+            try task.run()
+            task.waitUntilExit()
+            let data = pipe.fileHandleForReading.readDataToEndOfFile()
+            if let str = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines),
+               let vol = Int(str) {
+                return Float(vol) / 100.0
+            }
+        } catch {}
+        return 0.5
+    }
+
+    // MARK: - AppleScript Fallback
+
+    private func startAppleScriptMonitoring() {
+        updateTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { [weak self] _ in
+            self?.backgroundQueue.async {
+                self?.updateCurrentTrackAppleScript()
+            }
+        }
+        backgroundQueue.async { [weak self] in
+            self?.updateCurrentTrackAppleScript()
+        }
+    }
+
+    private func updateCurrentTrackAppleScript() {
         let sources: [(AudioApp, String, () -> UniversalTrack?, () -> Bool)] = [
             (.appleMusic, "Music", getMusicTrack, isMusicPlaying),
             (.spotify, "Spotify", getSpotifyTrack, isSpotifyPlaying),
             (.chrome, "Google Chrome", getChromeTrack, isChromePlaying),
             (.safari, "Safari", getSafariTrack, isSafariPlaying),
             (.arc, "Arc", getArcTrack, isArcPlaying),
-            (.firefox, "Firefox", getFirefoxTrack, isFirefoxPlaying)
         ]
 
-        for (source, appName, trackGetter, playingChecker) in sources {
-            // Skip if app is not running
-            guard isAppRunning(appName) else {
-                debugLog("📱 \(appName) not running")
-                continue
-            }
-
-            debugLog("🔍 Checking \(appName)...")
+        for (_, appName, trackGetter, playingChecker) in sources {
+            guard isAppRunning(appName) else { continue }
             if let track = trackGetter() {
-                debugLog("✅ Found: \(track.title)")
                 let playing = playingChecker()
                 DispatchQueue.main.async {
                     self.currentTrack = track
                     self.isPlaying = playing
                 }
                 return
-            } else {
-                debugLog("❌ No track in \(appName)")
             }
         }
 
-        // No audio detected
-        debugLog("🔇 No audio detected")
         DispatchQueue.main.async {
             self.currentTrack = nil
             self.isPlaying = false
         }
     }
 
-    /// Check if an application is currently running
     private func isAppRunning(_ appName: String) -> Bool {
         let runningApps = NSWorkspace.shared.runningApplications
         return runningApps.contains { app in
@@ -151,22 +239,13 @@ class UniversalAudioManager: ObservableObject {
         }
     }
 
-    // MARK: - Apple Music
+    // MARK: - Apple Music (AppleScript)
 
     private func getMusicTrack() -> UniversalTrack? {
-        // Check if Music is actually running first to avoid auto-launching
-        let checkScript = """
-        tell application "System Events"
-            return (name of processes) contains "Music"
-        end tell
-        """
-
-        guard let isRunning = runAppleScript(checkScript),
-              isRunning == "true" else { return nil }
-
+        // isAppRunning already confirmed Music is running, query directly
         let script = """
         tell application "Music"
-            if player state is playing or player state is paused then
+            if player state is playing then
                 set trackName to name of current track
                 set trackArtist to artist of current track
                 return trackName & "\(delimiter)" & trackArtist
@@ -180,13 +259,14 @@ class UniversalAudioManager: ObservableObject {
         let parts = result.components(separatedBy: delimiter)
         guard parts.count >= 2 else { return nil }
 
-        let artwork = getMusicArtwork()
         return UniversalTrack(
             title: parts[0],
             artist: parts[1],
-            artwork: artwork,
+            artwork: getMusicArtwork(),
             source: .appleMusic,
-            url: nil
+            url: nil,
+            duration: nil,
+            elapsedTime: nil
         )
     }
 
@@ -223,22 +303,12 @@ class UniversalAudioManager: ObservableObject {
         return image
     }
 
-    // MARK: - Spotify
+    // MARK: - Spotify (AppleScript)
 
     private func getSpotifyTrack() -> UniversalTrack? {
-        // Check if Spotify is actually running first to avoid auto-launching
-        let checkScript = """
-        tell application "System Events"
-            return (name of processes) contains "Spotify"
-        end tell
-        """
-
-        guard let isRunning = runAppleScript(checkScript),
-              isRunning == "true" else { return nil }
-
         let script = """
         tell application "Spotify"
-            if player state is playing or player state is paused then
+            if player state is playing then
                 set trackName to name of current track
                 set trackArtist to artist of current track
                 return trackName & "\(delimiter)" & trackArtist
@@ -257,7 +327,9 @@ class UniversalAudioManager: ObservableObject {
             artist: parts[1],
             artwork: getSpotifyArtwork(),
             source: .spotify,
-            url: nil
+            url: nil,
+            duration: nil,
+            elapsedTime: nil
         )
     }
 
@@ -285,31 +357,19 @@ class UniversalAudioManager: ObservableObject {
         return image
     }
 
-    // MARK: - Chrome
+    // MARK: - Chrome (AppleScript)
 
     private func getChromeTrack() -> UniversalTrack? {
-        // Check if Chrome is actually running first
-        let checkScript = """
-        tell application "System Events"
-            return (name of processes) contains "Google Chrome"
-        end tell
-        """
-
-        guard let isRunning = runAppleScript(checkScript),
-              isRunning == "true" else {
-            debugLog("Chrome is not running (process check)")
-            return nil
-        }
-
         let script = """
         tell application "Google Chrome"
             set tabTitle to ""
             set tabURL to ""
             repeat with w in windows
                 repeat with t in tabs of w
-                    if URL of t contains "youtube.com" or URL of t contains "spotify.com" or URL of t contains "music.apple.com" or URL of t contains "soundcloud.com" then
+                    set currentURL to URL of t
+                    if currentURL contains "youtube.com" or currentURL contains "youtu.be" or currentURL contains "music.youtube.com" or currentURL contains "spotify.com" or currentURL contains "music.apple.com" or currentURL contains "soundcloud.com" or currentURL contains "deezer.com" or currentURL contains "tidal.com" or currentURL contains "pandora.com" or currentURL contains "nhaccuatui.com" or currentURL contains "zingmp3.vn" or currentURL contains "bandcamp.com" or currentURL contains "audiomack.com" then
                         set tabTitle to title of t
-                        set tabURL to URL of t
+                        set tabURL to currentURL
                         exit repeat
                     end if
                 end repeat
@@ -323,22 +383,9 @@ class UniversalAudioManager: ObservableObject {
         end tell
         """
 
-        guard let result = runAppleScript(script) else {
-            debugLog("Chrome script returned nil (likely permission error)")
-            return nil
-        }
-
-        debugLog("Chrome script result: '\(result)'")
-
-        if result == "NO_TAB_FOUND" {
-            debugLog("No music tab found in Chrome")
-            return nil
-        }
-
-        guard !result.isEmpty else {
-            debugLog("Chrome script returned empty string")
-            return nil
-        }
+        guard let result = runAppleScript(script),
+              result != "NO_TAB_FOUND",
+              !result.isEmpty else { return nil }
 
         let parts = result.components(separatedBy: delimiter)
         guard !parts.isEmpty else { return nil }
@@ -346,35 +393,24 @@ class UniversalAudioManager: ObservableObject {
         let title = cleanBrowserTitle(parts[0])
         let url = parts.count > 1 ? parts[1] : nil
 
-        debugLog("✅ Chrome track found: \(title)")
-
         return UniversalTrack(
             title: title,
             artist: nil,
             artwork: nil,
             source: .chrome,
-            url: url
+            url: url,
+            duration: nil,
+            elapsedTime: nil
         )
     }
 
     private func isChromePlaying() -> Bool {
-        // If we found a track, it's likely playing
         return getChromeTrack() != nil
     }
 
-    // MARK: - Safari
+    // MARK: - Safari (AppleScript)
 
     private func getSafariTrack() -> UniversalTrack? {
-        // Check if Safari is actually running first
-        let checkScript = """
-        tell application "System Events"
-            return (name of processes) contains "Safari"
-        end tell
-        """
-
-        guard let isRunning = runAppleScript(checkScript),
-              isRunning == "true" else { return nil }
-
         let script = """
         tell application "Safari"
             set tabTitle to ""
@@ -382,7 +418,7 @@ class UniversalAudioManager: ObservableObject {
             repeat with w in windows
                 repeat with t in tabs of w
                     set currentURL to URL of t
-                    if currentURL contains "youtube.com" or currentURL contains "spotify.com" or currentURL contains "music.apple.com" or currentURL contains "soundcloud.com" then
+                    if currentURL contains "youtube.com" or currentURL contains "youtu.be" or currentURL contains "music.youtube.com" or currentURL contains "spotify.com" or currentURL contains "music.apple.com" or currentURL contains "soundcloud.com" or currentURL contains "deezer.com" or currentURL contains "tidal.com" or currentURL contains "pandora.com" or currentURL contains "nhaccuatui.com" or currentURL contains "zingmp3.vn" or currentURL contains "bandcamp.com" or currentURL contains "audiomack.com" then
                         set tabTitle to name of t
                         set tabURL to currentURL
                         exit repeat
@@ -410,7 +446,9 @@ class UniversalAudioManager: ObservableObject {
             artist: nil,
             artwork: nil,
             source: .safari,
-            url: url
+            url: url,
+            duration: nil,
+            elapsedTime: nil
         )
     }
 
@@ -418,19 +456,9 @@ class UniversalAudioManager: ObservableObject {
         return getSafariTrack() != nil
     }
 
-    // MARK: - Arc Browser
+    // MARK: - Arc Browser (AppleScript)
 
     private func getArcTrack() -> UniversalTrack? {
-        // Check if Arc is actually running first
-        let checkScript = """
-        tell application "System Events"
-            return (name of processes) contains "Arc"
-        end tell
-        """
-
-        guard let isRunning = runAppleScript(checkScript),
-              isRunning == "true" else { return nil }
-
         let script = """
         tell application "Arc"
             set tabTitle to ""
@@ -438,7 +466,7 @@ class UniversalAudioManager: ObservableObject {
             repeat with w in windows
                 repeat with t in tabs of w
                     set currentURL to URL of t
-                    if currentURL contains "youtube.com" or currentURL contains "spotify.com" or currentURL contains "music.apple.com" or currentURL contains "soundcloud.com" then
+                    if currentURL contains "youtube.com" or currentURL contains "youtu.be" or currentURL contains "music.youtube.com" or currentURL contains "spotify.com" or currentURL contains "music.apple.com" or currentURL contains "soundcloud.com" or currentURL contains "deezer.com" or currentURL contains "tidal.com" or currentURL contains "pandora.com" or currentURL contains "nhaccuatui.com" or currentURL contains "zingmp3.vn" or currentURL contains "bandcamp.com" or currentURL contains "audiomack.com" then
                         set tabTitle to title of t
                         set tabURL to currentURL
                         exit repeat
@@ -466,7 +494,9 @@ class UniversalAudioManager: ObservableObject {
             artist: nil,
             artwork: nil,
             source: .arc,
-            url: url
+            url: url,
+            duration: nil,
+            elapsedTime: nil
         )
     }
 
@@ -474,23 +504,11 @@ class UniversalAudioManager: ObservableObject {
         return getArcTrack() != nil
     }
 
-    // MARK: - Firefox
-
-    private func getFirefoxTrack() -> UniversalTrack? {
-        // Firefox doesn't have great AppleScript support, best effort
-        return nil
-    }
-
-    private func isFirefoxPlaying() -> Bool {
-        return false
-    }
-
     // MARK: - Helpers
 
     private func cleanBrowserTitle(_ title: String) -> String {
-        // Remove common suffixes from browser tab titles
         var cleaned = title
-        let suffixes = [" - YouTube", " - Spotify", " - Apple Music", " | Spotify"]
+        let suffixes = [" - YouTube", " - YouTube Music", " | YouTube Music", " - Spotify", " - Apple Music", " | Spotify", " - SoundCloud", " | SoundCloud", " | Deezer", " - Deezer", " | Bandcamp"]
         for suffix in suffixes {
             if let range = cleaned.range(of: suffix) {
                 cleaned = String(cleaned[..<range.lowerBound])
@@ -499,18 +517,15 @@ class UniversalAudioManager: ObservableObject {
         return cleaned.trimmingCharacters(in: .whitespaces)
     }
 
-    // MARK: - Playback Controls
-
-    func togglePlayPause() {
+    private func togglePlayPauseAppleScript() {
         guard let track = currentTrack else { return }
 
         switch track.source {
         case .appleMusic:
-            sendMusicCommand("playpause")
+            runAppleScript("tell application \"Music\" to playpause")
         case .spotify:
-            sendSpotifyCommand("playpause")
+            runAppleScript("tell application \"Spotify\" to playpause")
         case .chrome:
-            // Send space key to Chrome (play/pause)
             sendBrowserPlayPause(to: "Google Chrome")
         case .safari:
             sendBrowserPlayPause(to: "Safari")
@@ -521,26 +536,8 @@ class UniversalAudioManager: ObservableObject {
         }
 
         backgroundQueue.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-            self?.updateCurrentTrack()
+            self?.updateCurrentTrackAppleScript()
         }
-    }
-
-    private func sendMusicCommand(_ command: String) {
-        let script = """
-        tell application "Music"
-            \(command)
-        end tell
-        """
-        runAppleScript(script)
-    }
-
-    private func sendSpotifyCommand(_ command: String) {
-        let script = """
-        tell application "Spotify"
-            \(command)
-        end tell
-        """
-        runAppleScript(script)
     }
 
     private func sendBrowserPlayPause(to browser: String) {
@@ -555,83 +552,31 @@ class UniversalAudioManager: ObservableObject {
         runAppleScript(script)
     }
 
-    // MARK: - AppleScript
+    // MARK: - AppleScript Runner
 
+    @discardableResult
     private func runAppleScript(_ script: String) -> String? {
-        // AppleScript must run on main thread to avoid permission issues
-        // But we'll call this from background thread, so we need to dispatch
-        var result: String?
-        let semaphore = DispatchSemaphore(value: 0)
+        // NSAppleScript can run on any thread
+        var error: NSDictionary?
+        let appleScript = NSAppleScript(source: script)
+        let scriptResult = appleScript?.executeAndReturnError(&error)
 
-        DispatchQueue.main.async {
-            var error: NSDictionary?
-            let appleScript = NSAppleScript(source: script)
-            let scriptResult = appleScript?.executeAndReturnError(&error)
-
-            if let error = error {
-                // Log detailed error information
-                let errorCode = error[NSAppleScript.errorNumber] as? Int ?? 0
-                let errorMessage = error[NSAppleScript.errorMessage] as? String ?? "Unknown error"
-                self.debugLog("❌ AppleScript error \(errorCode): \(errorMessage)")
-
-                // Check if this is an automation permission error
-                // Error -1743 typically means permission denied or app not authorized
-                if errorCode == -1743 {
-                    self.checkAutomationPermissions(for: script)
-                }
-                result = nil
-            } else {
-                result = scriptResult?.stringValue
+        if let error = error {
+            let errorCode = error[NSAppleScript.errorNumber] as? Int ?? 0
+            let errorMessage = error[NSAppleScript.errorMessage] as? String ?? "Unknown error"
+            // Only log unexpected errors (not "app not running" or "not authorized" type errors)
+            if errorCode != -1728 && errorCode != -600 && errorCode != -10810 && errorCode != -1743 {
+                NSLog("[NotchIsland] AppleScript error %d: %@", errorCode, errorMessage)
             }
-
-            semaphore.signal()
+            return nil
         }
 
-        semaphore.wait()
-        return result
-    }
-
-    private var hasShownPermissionAlert = false
-
-    private func checkAutomationPermissions(for script: String) {
-        // Only show alert once to avoid spamming the user
-        guard !hasShownPermissionAlert else { return }
-
-        // Determine which app the script is trying to control
-        var targetApp = "applications"
-        if script.contains("Google Chrome") {
-            targetApp = "Google Chrome"
-        } else if script.contains("Safari") {
-            targetApp = "Safari"
-        } else if script.contains("Arc") {
-            targetApp = "Arc"
-        } else if script.contains("Firefox") {
-            targetApp = "Firefox"
-        }
-
-        hasShownPermissionAlert = true
-
-        // Show alert on main thread
-        DispatchQueue.main.async {
-            let alert = NSAlert()
-            alert.messageText = "Automation Permission Required"
-            alert.informativeText = "NotchIsland needs permission to detect audio from \(targetApp).\n\nPlease go to:\nSystem Settings → Privacy & Security → Automation\n\nThen enable NotchIsland to control \(targetApp).\n\nAfter granting permission, the audio detection will work automatically."
-            alert.alertStyle = .informational
-            alert.addButton(withTitle: "Open System Settings")
-            alert.addButton(withTitle: "Later")
-
-            let response = alert.runModal()
-            if response == .alertFirstButtonReturn {
-                // Open System Settings to Automation pane
-                if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
-                    NSWorkspace.shared.open(url)
-                }
-            }
-        }
+        return scriptResult?.stringValue
     }
 
     deinit {
         updateTimer?.invalidate()
+        volumeTimer?.invalidate()
         try? FileManager.default.removeItem(atPath: artworkTempPath)
     }
 }

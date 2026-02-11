@@ -72,13 +72,13 @@ struct NotchIslandView: View {
             }
         }
         .environment(\.notchTheme, theme)
-        .frame(width: 500, height: 160)
+        .frame(width: 500, height: 200)
         .clipShape(
             UnevenRoundedRectangle(
-                topLeadingRadius: 0,
+                topLeadingRadius: 18,
                 bottomLeadingRadius: 26,
                 bottomTrailingRadius: 26,
-                topTrailingRadius: 0,
+                topTrailingRadius: 18,
                 style: .continuous
             )
         )
